@@ -13,8 +13,17 @@ shakeWelcomeImg: 摇一摇欢迎图片
 */
 // 静态资源地址
 var staticUrl = 'https://static.sesine.com/wechat-weapp-movie'
+var doubanStaticUrl = 'https://img9.doubanio.com/view/photo/s_ratio_poster'
 // api地址
-var apiUrl = 'https://sesine.com/mina/api'
+//var apiUrl = 'https://sesine.com/mina/api'
+/*代理接口地址：
+https://douban.uieee.com （已备案）
+https://douban-api.uieee.com （已备案）
+https://douban-api.now.sh
+https://douban-api.zce.now.sh
+https://douban-api-git-master.zce.now.sh
+*/
+var apiUrl = 'https://douban.uieee.com/v2'
 module.exports = {
     city: '',
     count: 20,
@@ -34,11 +43,11 @@ module.exports = {
     hotKeyword: ['功夫熊猫', '烈日灼心', '摆渡人', '长城', '我不是潘金莲', '这个杀手不太冷', '驴得水', '海贼王之黄金城', '西游伏妖片', '我在故宫修文物', '你的名字'],
     hotTag: ['动作', '喜剧', '爱情', '悬疑'],
     bannerList: [
-        {type:'film', id: '26683290', imgUrl: staticUrl + '/images/banner_1.jpg'},
-        {type:'film', id: '25793398', imgUrl: staticUrl + '/images/banner_2.jpg'},
-        {type:'film', id: '26630781', imgUrl: staticUrl + '/images/banner_3.jpg'},
-        {type:'film', id: '26415200', imgUrl: staticUrl + '/images/banner_4.jpg'},
-        {type:'film', id: '3025375', imgUrl: staticUrl + '/images/banner_5.jpg'}
+        {type:'film', id: '26683290', imgUrl: doubanStaticUrl + '/public/p2578474613.jpg'},
+        {type:'film', id: '25793398', imgUrl: doubanStaticUrl + '/public/p2577340942.jpg'},
+        {type:'film', id: '26630781', imgUrl: doubanStaticUrl + '/public/p2577340942.jpg'},
+        {type:'film', id: '26415200', imgUrl: doubanStaticUrl + '/public/p2579512247.jpg'},
+        {type:'film', id: '3025375', imgUrl: doubanStaticUrl + '/public/p2578722076.jpg'}
     ],
     skinList: [
         {title: '公路', imgUrl: staticUrl + '/images/user_bg_1.jpg'},
