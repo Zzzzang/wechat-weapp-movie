@@ -13,25 +13,40 @@ function fetchFilms(url, start, count, cb, fail_cb) {
         start: start,
         count: config.count
       },
-      method: 'GET', 
+      method: 'GET',
       header: {
         "Content-Type": "application/json,application/json"
       },
       success: function(res){
-        if(res.data.subjects.length === 0){
+        /*失败*/
+        if (res.data.statusCode != 200) {
           that.setData({
-            hasMore: false,
-          })
-        }else{
-          that.setData({
-            films: that.data.films.concat(res.data.subjects),
-            start: that.data.start + res.data.subjects.length,
             showLoading: false
           })
-          console.log(that.data.start);
+          message.show.call(that,{
+            content: '豆瓣开小差了',
+            icon: 'offline',
+            duration: 3000
+          })
+          wx.stopPullDownRefresh()
+          typeof fail_cb == 'function' && fail_cb()
+        } else {
+          /*成功*/
+          if (res.data.subjects.length === 0) {
+            that.setData({
+              hasMore: false,
+            })
+          } else {
+            that.setData({
+              films: that.data.films.concat(res.data.subjects),
+              start: that.data.start + res.data.subjects.length,
+              showLoading: false
+            })
+            console.log(that.data.start);
+          }
+          wx.stopPullDownRefresh()
+          typeof cb == 'function' && cb(res.data)
         }
-        wx.stopPullDownRefresh()
-        typeof cb == 'function' && cb(res.data)
       },
       fail: function() {
         that.setData({
@@ -60,16 +75,29 @@ function fetchFilmDetail(url, id, cb) {
       "Content-Type": "application/json,application/json"
     },
     success: function(res){
-      that.setData({
-        filmDetail: res.data,
-        showLoading: false,
-        showContent: true
-      })
-      wx.setNavigationBarTitle({
+      if (res.data.statusCode != 200) {
+        that.setData({
+          showLoading: false
+        })
+        message.show.call(that,{
+          content: '豆瓣开小差了',
+          icon: 'offline',
+          duration: 3000
+        })
+        wx.stopPullDownRefresh()
+        typeof fail_cb == 'function' && fail_cb()
+      } else {
+        that.setData({
+          filmDetail: res.data,
+          showLoading: false,
+          showContent: true
+        })
+        wx.setNavigationBarTitle({
           title: res.data.title
-      })
-      wx.stopPullDownRefresh()
-      typeof cb == 'function' && cb(res.data)
+        })
+        wx.stopPullDownRefresh()
+        typeof cb == 'function' && cb(res.data)
+      }
     },
     fail: function() {
       that.setData({
@@ -90,21 +118,34 @@ function fetchPersonDetail(url, id, cb) {
   message.hide.call(that)
   wx.request({
     url: url + id,
-    method: 'GET', 
+    method: 'GET',
     header: {
       "Content-Type": "application/json,application/json"
     },
     success: function(res){
-      that.setData({
-        personDetail: res.data,
-        showLoading: false,
-        showContent: true
-      })
-      wx.setNavigationBarTitle({
+      if (res.data.statusCode != 200) {
+        that.setData({
+          showLoading: false
+        })
+        message.show.call(that,{
+          content: '豆瓣开小差了',
+          icon: 'offline',
+          duration: 3000
+        })
+        wx.stopPullDownRefresh()
+        typeof fail_cb == 'function' && fail_cb()
+      } else {
+        that.setData({
+          personDetail: res.data,
+          showLoading: false,
+          showContent: true
+        })
+        wx.setNavigationBarTitle({
           title: res.data.name
-      })
-      wx.stopPullDownRefresh()
-      typeof cb == 'function' && cb(res.data)
+        })
+        wx.stopPullDownRefresh()
+        typeof cb == 'function' && cb(res.data)
+      }
     },
     fail: function() {
       that.setData({
@@ -136,23 +177,36 @@ function search(url, keyword, start, count, cb){
         "Content-Type": "application/json,application/json"
       },
       success: function(res){
-        if(res.data.subjects.length === 0){
+        if (res.data.statusCode != 200) {
           that.setData({
-            hasMore: false,
             showLoading: false
           })
-        }else{
-          that.setData({
-            films: that.data.films.concat(res.data.subjects),
-            start: that.data.start + res.data.subjects.length,
-            showLoading: false
+          message.show.call(that,{
+            content: '豆瓣开小差了',
+            icon: 'offline',
+            duration: 3000
           })
-          wx.setNavigationBarTitle({
+          wx.stopPullDownRefresh()
+          typeof fail_cb == 'function' && fail_cb()
+        } else {
+          if (res.data.subjects.length === 0) {
+            that.setData({
+              hasMore: false,
+              showLoading: false
+            })
+          } else {
+            that.setData({
+              films: that.data.films.concat(res.data.subjects),
+              start: that.data.start + res.data.subjects.length,
+              showLoading: false
+            })
+            wx.setNavigationBarTitle({
               title: keyword
-          })
+            })
+          }
+          wx.stopPullDownRefresh()
+          typeof cb == 'function' && cb(res.data)
         }
-        wx.stopPullDownRefresh()
-        typeof cb == 'function' && cb(res.data)
       },
       fail: function() {
         that.setData({
