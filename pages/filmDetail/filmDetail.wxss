@@ -146,11 +146,12 @@
     color: #666;
 }
 
-.fd-bd-tag {
+/*类别*/
+.fd-bd-genres {
     display: flex;
 }
 
-.fd-bd-tag-item {
+.fd-bd-genres-item {
     padding: 5rpx 10rpx;
     margin-right: 15rpx;
     border: 1px solid #ccc;
@@ -158,6 +159,25 @@
     color: #666;
 }
 
+/*标签*/
+.fd-bd-tag {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.fd-bd-tag-item {
+    padding: 1rpx 1rpx;
+    text-align: center;
+    margin-right: 5rpx;
+    border: 1px solid #ccc;
+    border-radius: 10rpx;
+    color: #666;
+}
+
+/*导演演员*/
 .fd-bd-person {
     display: flex;
     width: 100%;
@@ -187,4 +207,54 @@
 
 .fd-bd-person-role {
     color: #999
+}
+
+/*豆瓣评分星*/
+.star00,.star05,.star10,.star15,.star20,.star25,.star30,.star35,.star40,.star45,.star50,.star0,.star1,.star2,.star3,.star4,.star5 {
+  display: inline-block;
+  height: 12px;
+  width: 65px;
+  -webkit-background-size: 65px 132px;
+  -moz-background-size: 65px 132px;
+  background-size: 65px 132px;
+  background-image: url(https://img3.doubanio.com/f/movie/63a2f208396a9069cf9970f62bf59fbe8c01010d/pics/movie/mobile/star_rating_new.png);
+  background-repeat: no-repeat;
+  margin-right: 4px;
+  position: relative;
+  top: 1px;
+}
+span.star5 {
+}
+.star00,.star0 {
+  background-position: 1px -120px
+}
+.star05 {
+  background-position: 1px -108px
+}
+.star10,.star1 {
+  background-position: 1px -96px
+}
+.star15 {
+  background-position: 1px -84px
+}
+.star20,.star2 {
+  background-position: 1px -72px
+}
+.star25 {
+  background-position: 1px -60px
+}
+.star30,.star3 {
+  background-position: 1px -48px
+}
+.star35 {
+  background-position: 1px -36px
+}
+.star40,.star4 {
+  background-position: 1px -24px
+}
+.star45 {
+  background-position: 1px -12px
+}
+.star50,.star5 {
+  background-position: 1px 0;
 }

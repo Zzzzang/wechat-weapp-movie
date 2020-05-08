@@ -16,15 +16,21 @@
                         <block wx:if="{{filmDetailCastIndex !== filmDetail.casts.length - 1}}">/</block>
                     </block>
                 </view>
+                <view class="fd-intro-txt">上映年份：{{filmDetail.year}}年</view>
                 <view class="fd-intro-txt">豆瓣评分：
                     <block wx:if="{{filmDetail.rating.average == 0}}">
                         暂无评分
                     </block>
                     <block wx:else>
                         {{filmDetail.rating.average}}分
+                        <!--移植原生豆瓣评星-->
+                        <block wx:if="{{filmDetail.rating.stars == 10}}"><view class="star1"></view></block>
+                        <block wx:elif="{{filmDetail.rating.stars == 20}}"><view class="star2"></view></block>
+                        <block wx:elif="{{filmDetail.rating.stars == 30}}"><view class="star3"></view></block>
+                        <block wx:elif="{{filmDetail.rating.stars == 40}}"><view class="star4"></view></block>
+                        <block wx:elif="{{filmDetail.rating.stars == 50}}"><view class="star5"></view></block>
                     </block>
                 </view>
-                <view class="fd-intro-txt">上映年份：{{filmDetail.year}}年</view>
             </view>
             <view class="fd-favorite {{isFilmFavorite ? 'fd-favorite-active' : ''}}" bindtap="favoriteFilm">收藏</view>
         </view>
@@ -60,11 +66,17 @@
                     </view>
                 </block>
             </view>
+            <view class="fd-bd-title">类型</view>
+            <view class="fd-bd-genres">
+                <block wx:for="{{filmDetail.genres}}" wx:for-item="filmDetailGenresItem" wx:key="filmDetailGenresItem">
+                    <view class="fd-bd-genres-item" data-tag="{{filmDetailGenresItem}}" catchtap="viewFilmByTag">{{filmDetailGenresItem}}</view>
+                </block>
+            </view>
             <view class="fd-bd-title">标签</view>
             <view class="fd-bd-tag">
-                <block wx:for="{{filmDetail.genres}}" wx:for-item="filmDetailTagItem" wx:key="filmDetailTagItem">
-                    <view class="fd-bd-tag-item" data-tag="{{filmDetailTagItem}}" catchtap="viewFilmByTag">{{filmDetailTagItem}}</view>
-                </block>
+              <block wx:for="{{filmDetail.tags}}" wx:for-item="filmDetailTagItem" wx:key="filmDetailTagItem">
+                <view class="fd-bd-tag-item" data-tag="{{filmDetailTagItem}}" catchtap="viewFilmByTag">{{filmDetailTagItem}}</view>
+              </block>
             </view>
         </view>
     </block> 
