@@ -44,6 +44,10 @@ App({
     if (e.detail.userInfo){
       //用户按了允许授权按钮
       that.globalData.userInfo = e.detail.userInfo
+      wx.setStorage({
+        key: 'wx_user_info',
+        data: that.globalData.userInfo
+      })
       typeof e == "function" && e(that.globalData.userInfo)
     } else {
       //用户按了拒绝按钮
