@@ -1,7 +1,14 @@
 <view class="container">
     <view class="user-info" style="background-image: url({{skin}})">
         <view class="user-skin" bindtap="viewSkin"></view>
-        <image src="{{userInfo.avatarUrl}}" class="user-avatar"></image>
+        <block wx:if="{{!userInfo}}">
+          <button class="user-avatar" plain="ture" size="mini" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">
+            <view class="user-auth-text">点我授权</view>
+          </button>
+        </block>
+        <block wx:elif="{{userInfo}}">
+          <image src="{{userInfo.avatarUrl}}" class="user-avatar"></image>
+        </block>
         <view class="user-nickname">
             {{userInfo.nickName}}
             <block wx:if="{{userInfo.gender == 1}}">

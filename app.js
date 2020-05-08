@@ -11,7 +11,7 @@ App({
   },
   getUserInfo:function(cb){
     var that = this
-    wx.login({
+    /*wx.login({
       success: function () {
         wx.getUserInfo({
           success: function (res) {
@@ -20,7 +20,35 @@ App({
           }
         })
       }
+    })*/
+    //查看是否授权
+    wx.getSetting({
+      success: function(res){
+        if (res.authSetting['scope.userInfo']) {
+          wx.getUserInfo({
+            success: function(res) {
+              console.log(res.userInfo)
+              //用户已经授权过
+              that.globalData.userInfo = res.userInfo
+              typeof cb == "function" && cb(that.globalData.userInfo)
+            }
+          })
+        }
+      }
     })
+  },
+  bindGetUserInfo: function(e) {
+    var that = this
+    console.log("用户进入授权Handler")
+    console.log(e.detail.userInfo)
+    if (e.detail.userInfo){
+      //用户按了允许授权按钮
+      that.globalData.userInfo = e.detail.userInfo
+      typeof e == "function" && e(that.globalData.userInfo)
+    } else {
+      //用户按了拒绝按钮
+      console.log("用户拒绝授权")
+    }
   },
   getCity: function(cb) {
     var that = this

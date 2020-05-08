@@ -11,9 +11,13 @@ Page({
     ],
     skin: ''
   },
+  bindGetUserInfo: function(e){
+    app.bindGetUserInfo(e)
+    //授权后刷新
+    this.onLoad()
+  },
   onLoad:function(cb){
     var that = this
-    console.log(app.globalData.userInfo)
     // 检测是否存在用户信息
     if (app.globalData.userInfo != null) {
       that.setData({
